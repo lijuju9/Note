@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/search_weather_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:id="@+id/search_weather_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="60sp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:hint="城市:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edit_city"
+                android:layout_width="180sp"
+                android:layout_height="60dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/note"
+                android:gravity="center"
+                android:hint="请输入城市名"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/search_w_btn"
+                android:layout_width="60sp"
+                android:layout_height="40sp"
+                android:layout_centerVertical="true"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/edit_city"
+                android:background="@drawable/buttonbackground_yellow"
+                android:gravity="center"
+                android:text="查询"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/start_btn"
+                android:layout_width="60sp"
+                android:layout_height="40sp"
+                android:layout_centerVertical="true"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/search_w_btn"
+                android:background="@drawable/buttonbackground_blue"
+                android:gravity="center"
+                android:text="关注"
+                android:textColor="#ffffff" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/shareP_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_weather_card"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+        <!-- 关注栏 -->
+        <RelativeLayout
+            android:id="@+id/ShareP_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_weather_layout">
+
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="85sp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/weather"
+                android:layout_width="60sp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/city"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tem"
+                android:layout_width="60sp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/weather"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/shareP_card">
+
+        <ListView
+            android:id="@+id/search_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/shareP_card"
+            android:layout_centerHorizontal="true" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
