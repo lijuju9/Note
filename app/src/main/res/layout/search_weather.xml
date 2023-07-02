@@ -77,8 +77,10 @@
         <!-- 关注栏 -->
         <Spinner
             android:id="@+id/my_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/starDefault"
+            android:textAlignment="center" />
     </androidx.cardview.widget.CardView>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

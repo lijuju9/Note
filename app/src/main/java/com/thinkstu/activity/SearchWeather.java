@@ -23,8 +23,12 @@ public class SearchWeather extends AppCompatActivity {
     private ListView                 listView;
     private Button                   start_btn;
     private SwipeRefreshLayout       swipeRefreshLayout;  //下拉刷新
-    private SharedPreferences        cachePreShr;
+    private SharedPreferences        cacheShrPre;
     private SharedPreferences.Editor cacheEditor;
+    private SharedPreferences        starShaPre;  // 城市缓存
+    private SharedPreferences.Editor starEditor;
+    private List<String>             weatherList = new ArrayList<>();
+    private Spinner                  mySpinner;
 
     // key 是高德地图的开发者 key，每个开发者需要去高德地图官网申请一个 key
     String key = "99e8de86755a9337458c499b969292a0";
@@ -39,16 +43,28 @@ public class SearchWeather extends AppCompatActivity {
         setContentView(R.layout.search_weather);
         init(); //初始化
 
-        cachePreShr = getSharedPreferences("WeatherData", MODE_PRIVATE);
-        cacheEditor = cachePreShr.edit();
+        cacheShrPre = getSharedPreferences("WeatherData", MODE_PRIVATE);
+        cacheEditor = cacheShrPre.edit();
         // 启动时清空缓存
         cacheEditor.clear();
         cacheEditor.apply();
 
-        SharedPreferences shaPre   = getSharedPreferences("cityWeather", Context.MODE_PRIVATE);
-        String            saveCity = shaPre.getString("saveCity", "");
-        String            tem      = shaPre.getString("tem", "");
-        String            weather  = shaPre.getString("weather", "");
+        // Star：收藏的城市
+        starShaPre = getSharedPreferences("StarCity", Context.MODE_PRIVATE);
+        starEditor = starShaPre.edit(); // 初始化 editor
+
+        String starCities = starShaPre.getString("city", "");
+        if (!starCities.isEmpty()) {
+            // 存在缓存数据，获取并显示
+            // TODO 应该显示默认信息
+
+            weatherList = gson.fromJson(starCities, List.class);
+        }
+        // 为 Spinner 设置适配器
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, weatherList);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(adapter);
     }
 
     // @SuppressLint("HandlerLeak") 禁止在此处显示对Handler内部类的警告，因为这种情况在Android中经常发生，且不会造成实际问题。
@@ -77,7 +93,7 @@ public class SearchWeather extends AppCompatActivity {
     // 代码先根据城市名获取城市编码，再根据城市编码获取天气信息（高德开发平台请求天气查询API中区域编码adcode是必须项，使用编码服务获取区域编码）
     private void getWeatherForecast(final String city) {
         // 使用 cachePreShr 读取缓存数据，如果存在则直接显示
-        String cacheCity = cachePreShr.getString(city, "");
+        String cacheCity = cacheShrPre.getString(city, "");
         if (!cacheCity.isEmpty()) {
             // 存在缓存数据，获取并显示
             List weatherList = gson.fromJson(cacheCity, List.class);
@@ -154,40 +170,12 @@ public class SearchWeather extends AppCompatActivity {
      */
     // TODO 关注功能
     private void saveStar() {
-        //获取输入
-        String saveCityIn = edit_city.getText().toString();
-        //获取sharedPreferences
-        SharedPreferences        sharedPreferences = getSharedPreferences("cityWeather", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor            = sharedPreferences.edit();
-
-        String nowCity  = sharedPreferences.getString("nowCity", "");
-        String saveCity = sharedPreferences.getString("saveCity", "");
-        String tem      = sharedPreferences.getString("tem", "");
-        String weather  = sharedPreferences.getString("weather", "");
-        //输入框为空 取消关注
-        if (saveCityIn.equals("")) {
-            editor.putString("nowCity", "");
-            editor.putString("saveCity", "");
-            editor.putString("tem", "");
-            editor.putString("weather", "");
-            editor.commit();
-            Msg.shorts(SearchWeather.this, "取消关注成功！");
-            //清空界面
-            listView.setAdapter(null);
-        }
-        //输入城市名和已关注的城市名相同 则更新关注
-        else if (saveCityIn.equals(saveCity)) {
-            editor.putString("nowCity", saveCityIn);
-            getWeatherForecast(saveCityIn);
-            Msg.shorts(SearchWeather.this, "更新成功！");
-        }
-        //默认添加关注
-        else {
-            editor.putString("nowCity", saveCityIn);
-            editor.commit();
-            getWeatherForecast(saveCityIn);
-            Msg.shorts(SearchWeather.this, "关注成功！");
-        }
+        // 获取输入的城市名
+        String city = edit_city.getText().toString();
+        weatherList.add(city);
+        starEditor.putString("city", gson.toJson(weatherList));
+        starEditor.apply();
+        Msg.shorts(SearchWeather.this, "关注成功");
     }
 
     public void refreshDiaries() {
@@ -202,6 +190,7 @@ public class SearchWeather extends AppCompatActivity {
         start_btn          = findViewById(R.id.start_btn);
         listView           = findViewById(R.id.search_weather);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        mySpinner          = (Spinner) findViewById(R.id.my_spinner);
         listView.setCacheColorHint(10); // 空间换时间
         swipeRefreshLayout.setOnRefreshListener(() -> refreshDiaries());    // 下拉刷新监听器
         search_btn.setOnClickListener(v -> {

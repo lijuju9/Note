@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Bistu天气</string>
+    <string name="starDefault">已收藏的城市列表</string>
     <drawable name="bg_normal">#c7c7c7</drawable>
     <drawable name="bg_change">#8deeee</drawable>
 </resources>
