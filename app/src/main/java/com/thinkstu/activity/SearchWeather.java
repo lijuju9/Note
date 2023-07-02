@@ -241,51 +241,37 @@ public class SearchWeather extends AppCompatActivity {
             try (Response response = client.newCall(request).execute();) {
                 //请求成功
                 if (response.isSuccessful()) {
-                    String result = response.body().string();
-                    // 存储解析json字符串得到的天气信息
-                    List<Map<String, String>> weatherList = new ArrayList<>();
-                    // 使用Gson解析
-                    Weather weather = gson.fromJson(result, Weather.class);
+                    String                    result      = response.body().string();
+                    List<Map<String, String>> weatherList = new ArrayList<>();  // 存储解析json字符串得到的天气信息
+                    Weather                   weather     = gson.fromJson(result, Weather.class);     // Gson解析
                     // 定义日期
                     String[] dates = {"今天", "明天", "后天", "大后天"};
-                    // 获取Casts列表
+                    // 获取 Casts 列表并遍历
                     List<Casts> castsList = weather.getForecasts().get(0).getCasts();
-                    // 遍历Casts列表
                     for (int i = 0; i < castsList.size() && i < dates.length; i++) {
                         Casts               cast = castsList.get(i);
                         Map<String, String> map  = new HashMap<>();
 
-                        map.put("date", dates[i]);
-                        map.put("day_weather", cast.getDayweather());
-                        map.put("day_temp", cast.getDaytemp() + "℃");
-                        if (WeatherUtil.noWindDirection(cast.getDaywind())) {
-                            map.put("day_wind", cast.getDaywind());
-                        } else {
-                            map.put("day_wind", cast.getDaywind() + "风");
-                        }
-                        map.put("day_power", cast.getDaypower() + "级");
-                        map.put("night_weather", cast.getNightweather());
-                        map.put("night_temp", cast.getNighttemp() + "℃");
-                        if (WeatherUtil.noWindDirection(cast.getNightwind())) {
-                            map.put("night_wind", cast.getNightwind());
-                        } else {
-                            map.put("night_wind", cast.getNightwind() + "风");
-                        }
-                        map.put("night_power", cast.getNightpower() + "级");
+                        map.put("date", dates[i]);  // 日期
+                        map.put("day_weather", cast.getDayweather());     // 白天天气
+                        map.put("day_temp", cast.getDaytemp() + "℃");     // 温度
+                        map.put("day_wind", cast.getDaywind() + "风");    // 风向
+                        map.put("day_power", cast.getDaypower() + "级");  // 风力
+                        map.put("night_weather", cast.getNightweather());    // 夜间天气
+                        map.put("night_temp", cast.getNighttemp() + "℃");    // 温度
+                        map.put("night_wind", cast.getNightwind() + "风");   // 风向
+                        map.put("night_power", cast.getNightpower() + "级"); // 风力
                         weatherList.add(map);
                     }
-
-                    //将服务器返回数据写入Handler
+                    //将服务器返回数据写入 Handler
                     Message message = Message.obtain();
-                    message.what = 3;
+                    message.what = 3;   // 3表示请求成功
                     message.obj  = weatherList;
                     handler.sendMessage(message);
                 }
             } catch (Exception e) {
-                Log.i("SearchWeather.java", "服务器异常:" + e);
                 Message message = Message.obtain();
                 message.what = 1;
-                message.obj  = e.toString();
                 handler.sendMessage(message);
                 e.printStackTrace();
             }
@@ -293,49 +279,26 @@ public class SearchWeather extends AppCompatActivity {
     }
 
     //关注按钮的实现
-
-    /**
-     * 高德开发平台请求天气查询API中区域编码adcode是必须项，使用高德地理编码服务获取区域编码
-     * address:结构化地址信息，规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
-     */
     private void getCityCodeStar(final String city) {
         String url = "https://restapi.amap.com/v3/geocode/geo?key=6d29a580912e6f4b7ffb3b057d1f9ab2&address=" + city;
-
         final Request request = new Request.Builder().url(url).get().build();
         new Thread(() -> {
-            Response response = null;
-            try {
-                response = client.newCall(request).execute();
+            try (Response response = client.newCall(request).execute();) {
                 //请求成功
                 if (response.isSuccessful()) {
                     String result = response.body().string();
-
-                    Log.i("result", result);
-
-                    //转JsonObject
-                    JsonObject object = new JsonParser().parse(result).getAsJsonObject();
-                    //转JsonArray
-                    JsonArray  array = object.get("geocodes").getAsJsonArray();
-                    JsonObject info  = array.get(0).getAsJsonObject();
-
+                    //转 JsonObject、JsonArray 处理
+                    JsonObject object = JsonParser.parseString(result).getAsJsonObject();
+                    JsonArray  array  = object.get("geocodes").getAsJsonArray();
+                    JsonObject info   = array.get(0).getAsJsonObject();
                     //获取adcode
-                    String adcode = info.get("adcode").getAsString();
-                    Log.i("测试获取adcode", adcode);
-
+                    String cityCode = info.get("adcode").getAsString();
                     //请求天气查询
-                    getWeatherStar(adcode, city);
-
-                    Message message = Message.obtain();
-                    message.what = 2;
-                    message.obj  = adcode;
-                    handler_star.sendMessage(message);
+                    getWeatherStar(cityCode);
                 }
             } catch (Exception e) {
-                Log.i("SearchMainActivity.java", "服务器异常:" + e);
-
                 Message message = Message.obtain();
-                message.what = 0;
-                message.obj  = "服务器异常";
+                message.what = 1;
                 handler_star.sendMessage(message);
                 e.printStackTrace();
             }
@@ -345,7 +308,7 @@ public class SearchWeather extends AppCompatActivity {
     /**
      * 查询天气
      */
-    private void getWeatherStar(String adcode, String city) {
+    private void getWeatherStar(String adcode) {
         String        newUrl  = url + "&&city=" + adcode;
         final Request request = new Request.Builder().url(newUrl).get().build();
         new Thread(() -> {
