@@ -75,48 +75,10 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
         <!-- 关注栏 -->
-        <RelativeLayout
-            android:id="@+id/ShareP_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/search_weather_layout">
-
-            <TextView
-                android:id="@+id/city"
-                android:layout_width="85sp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/weather"
-                android:layout_width="60sp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/city"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tem"
-                android:layout_width="60sp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/weather"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
-
-        </RelativeLayout>
+        <Spinner
+            android:id="@+id/my_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </androidx.cardview.widget.CardView>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -129,12 +91,12 @@
             android:id="@+id/search_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#00000000"
-            android:dividerHeight="10dp"
+            android:layout_below="@+id/shareP_card"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_below="@+id/shareP_card"
-            android:layout_centerHorizontal="true" />
+            android:divider="#00000000"
+            android:dividerHeight="10dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
