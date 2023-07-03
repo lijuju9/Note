@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_view_border"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/date"
@@ -30,7 +32,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="right"
             android:text="白天"
-            android:textColor="#1e90ff"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp" />
 
         <TextView
@@ -40,11 +42,12 @@
             android:layout_below="@+id/day"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"
+            android:textColor="@color/colorPrimary"
             android:layout_toRightOf="@+id/center_fill"
             android:gravity="center"
             android:text="小雨"
-            android:textColor="@color/colorPrimary"
             android:textSize="35sp"
+
             android:textStyle="bold" />
 
         <TextView
@@ -101,11 +104,11 @@
             android:textStyle="bold" />
 
         <View
-            android:layout_width="match_parent"
             android:id="@+id/divider_dash"
+            android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:layout_below="@id/day_power"
-            android:background="@drawable/divider" />
+            android:background="@drawable/list_view_border" />
 
         <TextView
             android:id="@+id/night"
@@ -169,7 +172,7 @@
         <TextView
             android:id="@+id/center_fill4"
             android:layout_width="2dp"
-            android:layout_height="30dp"
+            android:layout_height="10dp"
             android:layout_below="@+id/night_weather"
             android:layout_centerHorizontal="true" />
 

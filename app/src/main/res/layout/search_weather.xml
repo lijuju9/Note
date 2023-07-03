@@ -55,11 +55,14 @@
                 android:layout_width="60sp"
                 android:layout_height="40sp"
                 android:layout_centerVertical="true"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toRightOf="@+id/search_w_btn"
                 android:background="@drawable/buttonbackground_blue"
                 android:gravity="center"
-                android:text="关注"
+                android:text="@string/star"
                 android:textColor="#ffffff" />
 
         </RelativeLayout>
@@ -83,11 +86,31 @@
             android:textAlignment="center" />
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/report_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareP_card"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <TextView
+            android:id="@+id/report_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="欢迎您的使用~"
+            android:textAlignment="center"
+            android:layout_margin="5dp"
+            android:textSize="12dp"
+            />
+    </androidx.cardview.widget.CardView>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/shareP_card">
+        android:layout_below="@+id/report_card">
 
         <ListView
             android:id="@+id/search_weather"

@@ -7,11 +7,11 @@ import java.util.List;
  */
 public class Weather {
     //值为0或1：1：成功；0：失败
-    private String          status;//返回状态
-    private String          count;//返回结果总数目
-    private String          info;//返回的状态信息
-    private String          infoCode;//返回状态说明,10000代表正确
-    private List<Forecasts> forecasts;//预报天气信息数据
+    private String          status;     //返回状态
+    private String          count;      //返回结果总数目
+    private String          info;       //返回的状态信息
+    private String          infoCode;   //返回状态说明,10000 代表正确
+    private List<Forecasts> forecasts;  //预报天气信息数据
 
     public String getStatus() {
         return status;
