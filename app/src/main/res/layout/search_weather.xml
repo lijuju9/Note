@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg1"
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
@@ -35,7 +36,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/note"
                 android:gravity="center"
-                android:hint="请输入城市名"
+                android:hint="请输入城市ID"
                 android:textSize="16sp" />
 
             <Button
@@ -43,9 +44,12 @@
                 android:layout_width="60sp"
                 android:layout_height="40sp"
                 android:layout_centerVertical="true"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toRightOf="@+id/edit_city"
-                android:background="@drawable/buttonbackground_yellow"
+                android:background="@drawable/buttonbackground_green"
                 android:gravity="center"
                 android:text="查询"
                 android:textColor="#ffffff" />
@@ -62,7 +66,7 @@
                 android:layout_toRightOf="@+id/search_w_btn"
                 android:background="@drawable/buttonbackground_blue"
                 android:gravity="center"
-                android:text="@string/star"
+                android:text="收藏"
                 android:textColor="#ffffff" />
 
         </RelativeLayout>

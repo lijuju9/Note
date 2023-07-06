@@ -142,7 +142,7 @@ public class SearchWeather extends AppCompatActivity {
                             List<Map<String, String>> weatherList    = new ArrayList<>();  // 存储解析json字符串得到的天气信息
                             Weather                   weather        = gson.fromJson(resultForecast, Weather.class);     // Gson解析
                             // 定义日期数组
-                            String[] dates = {"今天", "明天", "后天", "大后天"};
+                            String[] dates = {"今天", "明天", "后天"};
                             // 切换至主线程设置时间（UI）
                             runOnUiThread(() -> reportTimeTextView.setText("数据最后更新时间：" + weather.getForecasts().get(0).getReporttime()));
 

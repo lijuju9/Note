@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="296dp"
         android:background="@drawable/list_view_border"
         android:padding="12dp">
 
@@ -21,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:text="今天"
-            android:textColor="#48d1cc"
+            android:textColor="#2196F3"
             android:textSize="32sp" />
 
         <TextView
@@ -42,11 +42,11 @@
             android:layout_below="@+id/day"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"
-            android:textColor="@color/colorPrimary"
             android:layout_toRightOf="@+id/center_fill"
             android:gravity="center"
             android:text="小雨"
-            android:textSize="35sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="34sp"
 
             android:textStyle="bold" />
 
@@ -72,10 +72,12 @@
 
         <TextView
             android:id="@+id/day_wind"
-            android:layout_width="160sp"
-            android:layout_height="30sp"
+            android:layout_width="78dp"
+            android:layout_height="33dp"
             android:layout_below="@+id/day_temp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="-3dp"
+            android:layout_marginRight="82dp"
             android:layout_toLeftOf="@+id/day_weather"
             android:gravity="center"
             android:text="北风"
@@ -92,10 +94,12 @@
 
         <TextView
             android:id="@+id/day_power"
-            android:layout_width="160sp"
-            android:layout_height="30sp"
+            android:layout_width="81dp"
+            android:layout_height="28dp"
             android:layout_below="@+id/day_wind"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="-30dp"
+            android:layout_marginRight="2dp"
             android:layout_toLeftOf="@+id/center_fill2"
             android:gravity="center"
             android:text="≤3级"
@@ -108,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:layout_below="@id/day_power"
+            android:layout_marginTop="13dp"
             android:background="@drawable/list_view_border" />
 
         <TextView
@@ -119,7 +124,7 @@
             android:layout_marginTop="10dp"
             android:gravity="right"
             android:text="夜间"
-            android:textColor="#1e90ff"
+            android:textColor="#303F9F"
             android:textSize="20sp" />
 
         <TextView
@@ -128,6 +133,8 @@
             android:layout_height="90sp"
             android:layout_below="@+id/night"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="-1dp"
+            android:layout_marginTop="-8dp"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@+id/center_fill3"
             android:gravity="center"
@@ -158,10 +165,12 @@
 
         <TextView
             android:id="@+id/night_wind"
-            android:layout_width="160dp"
-            android:layout_height="30dp"
+            android:layout_width="72dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/night_temp"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="-2dp"
+            android:layout_marginRight="88dp"
             android:layout_toLeftOf="@+id/center_fill4"
             android:gravity="center"
             android:text="西北风"
@@ -178,10 +187,12 @@
 
         <TextView
             android:id="@+id/night_power"
-            android:layout_width="160dp"
-            android:layout_height="30dp"
+            android:layout_width="87dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/night_wind"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="-32dp"
+            android:layout_marginRight="2dp"
             android:layout_toLeftOf="@+id/center_fill4"
             android:gravity="center"
             android:text="≤3级"
